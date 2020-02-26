@@ -12,15 +12,47 @@ def part1(samples):
     #extract features
     X = extract_features(samples)
     assert type(X) == np.ndarray
-    print("Example sample feature vec: ", X[0])
+    print("Example sample feature vec: ", X[0][0:30])
     print("Data shape: ", X.shape)
     return X
 
 
 def extract_features(samples):
     print("Extracting features ...")
-    pass #Fill this in
+    rows = [] #initiate list of dictionaries (one per news post)
+    index = 0 # initiate index
+    index_dict = {} # initiate dict to keep track of words and indexes
+    for text in samples:
+        row_counts = {} # one dict of index: count pairs per text/row
+        words = text.split(" ") # tokenize by whitespace
+        for word in words:
+            if word.isalpha(): # remove numbers and punctuation
+                word = word.lower() # lowercase
+                if word in index_dict:
+                    i = index_dict[word] # get index, if already assigned,
+                else:
+                    index_dict[word] = index # otherwise assign index
+                    i = index
+                    index += 1 # and raise index counter by one
+                if i in row_counts: # get word counts per text
+                    row_counts[i] += 1
+                else:
+                    row_counts[i] = 1
+        rows.append(row_counts)
+    features = np.zeros((len(rows), len(index_dict))) # instantiate empty ndarray
+    for n, dict in enumerate(rows):
+        for ind, val in dict.items():
+            features[n, ind] = val # replace zeros by counts
+    return features
 
+
+
+
+# loop over files and words
+# somehow keep track of index for every word - dict with word as key and index as value
+# additional dict with index as key and count as value
+# instantiate array with length of index dict
+# go through list of dictionaries and replace zeros with counts
 
 
 ##### PART 2
