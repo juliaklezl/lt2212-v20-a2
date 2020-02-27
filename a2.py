@@ -2,6 +2,7 @@ import argparse
 import random
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.base import is_classifier
+from sklearn.decomposition import TruncatedSVD
 import numpy as np
 random.seed(42)
 
@@ -12,10 +13,9 @@ def part1(samples):
     #extract features
     X = extract_features(samples)
     assert type(X) == np.ndarray
-    print("Example sample feature vec: ", X[0][0:30])
+    print("Example sample feature vec: ", X[0])
     print("Data shape: ", X.shape)
     return X
-
 
 def extract_features(samples):
     print("Extracting features ...")
@@ -45,16 +45,6 @@ def extract_features(samples):
             features[n, ind] = val # replace zeros by counts
     return features
 
-
-
-
-# loop over files and words
-# somehow keep track of index for every word - dict with word as key and index as value
-# additional dict with index as key and count as value
-# instantiate array with length of index dict
-# go through list of dictionaries and replace zeros with counts
-
-
 ##### PART 2
 #DONT CHANGE THIS FUNCTION
 def part2(X, n_dim):
@@ -69,8 +59,12 @@ def part2(X, n_dim):
 
 
 def reduce_dim(X,n=10):
-    #fill this in
-    pass
+    sv = TruncatedSVD(n_components=n)
+    print("Ok")
+    sv.fit(X)
+    print("still Ok")
+    red_X = sv.transform(X)
+    return red_X
 
 
 
