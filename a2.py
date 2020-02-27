@@ -6,7 +6,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
-from sklearn.metrics import average_precision_score, f1_score, recall_score
+from sklearn.metrics import classification_report
 import numpy as np
 random.seed(42)
 
@@ -73,7 +73,7 @@ def reduce_dim(X,n=10):
 #DONT CHANGE THIS FUNCTION EXCEPT WHERE INSTRUCTED
 def get_classifier(clf_id):
     if clf_id == 1:
-        clf = SVC() # <--- REPLACE THIS WITH A SKLEARN MODEL
+        clf = SVC(gamma = 'auto') # <--- REPLACE THIS WITH A SKLEARN MODEL
     elif clf_id == 2:
         clf = GaussianNB() # <--- REPLACE THIS WITH A SKLEARN MODEL
     else:
@@ -110,14 +110,14 @@ def part3(X, y, clf_id):
 
 
 def shuffle_split(X,y):  # TODO: Maybe easier to just randomize in train_test_split? Is it allowed?
-    rand_list = []
-    for i, row in enumerate(X):
-        pair = (row, y[i])
-        rand_list.append(pair)
-    random.shuffle(rand_list)
-    X_s = [i[0] for i in rand_list]
-    y_s = [i[1] for i in rand_list]
-    X_train, X_test, y_train, y_test = train_test_split(X_s, y_s, test_size = 0.2)
+   # rand_list = []
+   # for i, row in enumerate(X):
+   #     pair = (row, y[i])
+   #     rand_list.append(pair)
+   # random.shuffle(rand_list)
+   # X_s = [i[0] for i in rand_list]
+   # y_s = [i[1] for i in rand_list]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
     return X_train, X_test, y_train, y_test
 
 
@@ -129,13 +129,8 @@ def train_classifer(clf, X, y):
 def evalute_classifier(clf, X, y):
     assert is_classifier(clf)
     accuracy = clf.score(X, y)
-    precision = average_precision_score(y, clf.predict(X))
-    f1 = f1_score(y, clf.predict(X))
-    recall = recall_score(y, clf.predict(X))
     print("Accuracy:", accuracy)
-    print("Precision:", precision)
-    print("Recall:", recall)
-    print("F-measure:", f1)
+    print(classification_report(y, clf.predict(X)))
 
 
 
