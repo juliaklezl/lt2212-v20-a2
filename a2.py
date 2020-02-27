@@ -3,6 +3,10 @@ import random
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.base import is_classifier
 from sklearn.decomposition import TruncatedSVD
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.metrics import average_precision_score, f1_score, recall_score
 import numpy as np
 random.seed(42)
 
@@ -60,10 +64,7 @@ def part2(X, n_dim):
 
 def reduce_dim(X,n=10):
     sv = TruncatedSVD(n_components=n)
-    print("Ok")
-    sv.fit(X)
-    print("still Ok")
-    red_X = sv.transform(X)
+    red_X = sv.fit_transform(X)
     return red_X
 
 
@@ -72,9 +73,9 @@ def reduce_dim(X,n=10):
 #DONT CHANGE THIS FUNCTION EXCEPT WHERE INSTRUCTED
 def get_classifier(clf_id):
     if clf_id == 1:
-        clf = "" # <--- REPLACE THIS WITH A SKLEARN MODEL
+        clf = SVC() # <--- REPLACE THIS WITH A SKLEARN MODEL
     elif clf_id == 2:
-        clf = "" # <--- REPLACE THIS WITH A SKLEARN MODEL
+        clf = GaussianNB() # <--- REPLACE THIS WITH A SKLEARN MODEL
     else:
         raise KeyError("No clf with id {}".format(clf_id))
 
@@ -86,7 +87,6 @@ def get_classifier(clf_id):
 def part3(X, y, clf_id):
     #PART 3
     X_train, X_test, y_train, y_test = shuffle_split(X,y)
-
     #get the model
     clf = get_classifier(clf_id)
 
@@ -109,18 +109,35 @@ def part3(X, y, clf_id):
     evalute_classifier(clf, X_test, y_test)
 
 
-def shuffle_split(X,y):
-    pass # Fill in this
+def shuffle_split(X,y):  # TODO: Maybe easier to just randomize in train_test_split? Is it allowed?
+    rand_list = []
+    for i, row in enumerate(X):
+        pair = (row, y[i])
+        rand_list.append(pair)
+    random.shuffle(rand_list)
+    X_s = [i[0] for i in rand_list]
+    y_s = [i[1] for i in rand_list]
+    X_train, X_test, y_train, y_test = train_test_split(X_s, y_s, test_size = 0.2)
+    return X_train, X_test, y_train, y_test
 
 
 def train_classifer(clf, X, y):
     assert is_classifier(clf)
-    ## fill in this
+    clf.fit(X, y)
 
 
 def evalute_classifier(clf, X, y):
     assert is_classifier(clf)
-    #Fill this in
+    accuracy = clf.score(X, y)
+    precision = average_precision_score(y, clf.predict(X))
+    f1 = f1_score(y, clf.predict(X))
+    recall = recall_score(y, clf.predict(X))
+    print("Accuracy:", accuracy)
+    print("Precision:", precision)
+    print("Recall:", recall)
+    print("F-measure:", f1)
+
+
 
 
 ######
