@@ -47,9 +47,10 @@ def extract_features(samples):
     for n, dict in enumerate(rows):
         for ind, val in dict.items():
             features[n, ind] = val # replace zeros by counts
-    ar_sum = np.sum(features, axis = 0) # get sum of all columns
-    ar_fil = ar_sum > 10  #create boolean vector
-    features = features[:, ar_fil]  # filter array according to boolean vector
+    ar_sum = np.sum(features, axis = 0)
+    ar_fil = ar_sum > 10
+    print(ar_fil)
+    features = features[:, ar_fil]
     return features
 
 ##### PART 2
@@ -66,8 +67,8 @@ def part2(X, n_dim):
 
 
 def reduce_dim(X,n=10):
-    pca = PCA(n_components=n)
-    red_X = pca.fit_transform(X)
+    sv = TruncatedSVD(n_components=n)
+    red_X = sv.fit_transform(X)
     return red_X
 
 
