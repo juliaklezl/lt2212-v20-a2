@@ -29,6 +29,14 @@ unreduced 0.56		 0.74
 1300 f.   0.16		 0.14, 0.25, 0.14, 0.12
 600 f.    0.15		 0.15, 0.26, 0.15, 0.13
 
+|               | Decision Tree | Gaussian NB            |
+| ------------- |:-------------:| ----------------------:|
+| unreduced     | 0.56          | 0.74                   |
+| 6000 f.       | 0.14          | 0.12, 0.23, 0.12, 0.09 |
+| 3000 f.       | 0.14          | 0.12, 0.25, 0.12, 0.10 |
+| 1300 f.       | 0.16.         | 0.14, 0.25, 0.14, 0.12 |
+| 600 f.        | 0.15.         | 0.15, 0.26, 0.15, 0.13 |
+
 I am surprised how quickly the performance of both classifiers drops with the
 reduced dimensions. I would have expected at least the 50% - version to still
 yield sensible results. Therefore, it seems that this feature set could not 
