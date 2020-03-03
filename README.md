@@ -22,13 +22,6 @@ approx. 10% (1300 features), and 5% (600 features). THe results are as follows:
 The reported results are accuracy, weighted average of precision, recall, and
 f1-score (if only one value is given, the numbers were identical). 
 
-          Decision Tree  Gaussian NB
-unreduced 0.56		 0.74
-6000 f.   0.14		 0.12, 0.23, 0.12, 0.09
-3000 f.   0.14		 0.12, 0.25, 0.12, 0.10
-1300 f.   0.16		 0.14, 0.25, 0.14, 0.12
-600 f.    0.15		 0.15, 0.26, 0.15, 0.13
-
 |               | Decision Tree | Gaussian NB            |
 | ------------- |:-------------:| ----------------------:|
 | unreduced     | 0.56          | 0.74                   |
@@ -52,12 +45,15 @@ possibly also mean that the Decision Tree's results are more balanced/stable.
 Part Bonus
 For the bonus part, I implemented the same program and classifiers, but used sklearn's
 Truncated SVC algorithm for the dimensionality reduction instead. 
-          Decision Tree  Gaussian NB
-unreduced 0.56           0.74, 0.74, 0.73, 0.73
-6000 f.   0.15           0.12, 0.24, 0.12, 0.10
-3000 f.   0.14           0.12, 0.24, 0.12, 0.10
-1300 f.   0.16           0.14, 0.27, 0.14, 0.13
-600 f.    0.15           0.16, 0.27, 0.16, 0.14
+
+|               | Decision Tree | Gaussian NB            |
+| ------------- |:-------------:| ----------------------:|
+| unreduced     | 0.56          | 0.74, 0.74, 0.73, 0.73 |
+| 6000 f.       | 0.15          | 0.12, 0.24, 0.12, 0.10 |
+| 3000 f.       | 0.14          | 0.12, 0.24, 0.12, 0.10 |
+| 1300 f.       | 0.16          | 0.14, 0.27, 0.14, 0.13 |
+| 600 f.        | 0.15          | 0.16, 0.27, 0.16, 0.14 |
+
 
 Using another algorithm for the dimensionality reduction did not have a significant 
 effect on the results.
