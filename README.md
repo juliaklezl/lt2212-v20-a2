@@ -1,8 +1,5 @@
 # LT2212 V20 Assignment 2
 
-Put any documentation here including any answers to the questions in the 
-assignment on Canvas.
-
 1) I tokenize the words by splitting them at empty spaces. In order to filter
 out useless data, I remove all punctuation and numbers and lowercase all 
 tokens. I only include words which occur more than 10 times in the total
@@ -27,8 +24,8 @@ f1-score (if only one value is given, the numbers were identical).
 | unreduced     | 0.56          | 0.74                   |
 | 6000 f.       | 0.14          | 0.12, 0.23, 0.12, 0.09 |
 | 3000 f.       | 0.14          | 0.12, 0.25, 0.12, 0.10 |
-| 1300 f.       | 0.16.         | 0.14, 0.25, 0.14, 0.12 |
-| 600 f.        | 0.15.         | 0.15, 0.26, 0.15, 0.13 |
+| 1300 f.       | 0.16          | 0.14, 0.25, 0.14, 0.12 |
+| 600 f.        | 0.15          | 0.15, 0.26, 0.15, 0.13 |
 
 I am surprised how quickly the performance of both classifiers drops with the
 reduced dimensions. I would have expected at least the 50% - version to still
